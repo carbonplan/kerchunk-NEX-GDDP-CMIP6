@@ -1,0 +1,27 @@
+name: nasa-nex
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - dask
+  - distributed
+  - fastparquet 
+  - git
+  - ipython 
+  - h5netcdf
+  - h5py
+  - kerchunk
+  - mamba
+  - matplotlib
+  - netcdf4
+  - numpy
+  - pandas
+  - pip
+  - s3fs
+  - xarray
+  - zarr
+
+  - pip:
+      - git+https://github.com/pangeo-forge/pangeo-forge-recipes
+      - "apache-beam[interactive, dataframe]"
+
