@@ -6,6 +6,7 @@ dependencies:
   - dask
   - distributed
   - fastparquet 
+  - gcsfs
   - git
   - ipython 
   - h5netcdf
@@ -20,6 +21,8 @@ dependencies:
   - pip
   - s3fs
   - xarray
+  - xarray-datatree
+  - xmip
   - zarr
 
   - pip:
