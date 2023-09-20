@@ -51,7 +51,7 @@ prune_bool = True
 
 for index,row in unique_df.iterrows():
     file_pattern = df.query(f"GCM == '{row['GCM']}'  & scenario == '{row['scenario']}'")
-    grid_code = file_pattern.url.str.split('.',expand=True)[0].str[-7:-5]
+    grid_code = file_pattern.url.str.split('.',expand=True)[0].str[-7:-5].iloc[0]
     avail_years = file_pattern.url.str.split('.',expand=True)[0].str[-4::]
     max_year = max(avail_years)
     min_year = min(avail_years)
@@ -91,7 +91,7 @@ for index,row in unique_df.iterrows():
             concat_dims=["time"],
             identical_dims=["lat", "lon"],
             )
-            Write the combined Kerchunk reference to file.
+            # Write the combined Kerchunk reference to file.
             | WriteCombinedReference(
                 store_name=store_name,
                 target_root=target_root,
@@ -99,15 +99,13 @@ for index,row in unique_df.iterrows():
                 output_file_name=output_file_name,
             )
         )
-        break
+
         with beam.Pipeline(runner=InteractiveRunner(), options=beam_options) as p:
             p | transforms
 
 
         cat_df.loc[-1] = [store_name, os.path.join(target_root, store_name, output_file_name)]
         cat_df.reset_index().drop(['index'], axis=1).to_csv(catalog_url, index=False)
-    
-    
 
 
 
