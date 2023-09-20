@@ -36,7 +36,6 @@ def _nasa_nex_df() -> pd.DataFrame:
 
 def _GCM_scenarios(df: pd.DataFrame)->pd.DataFrame:
     # Reads in nasa-nex dataframe
-
     colapsed_df = df.groupby(['GCM','scenario','ensemble_member'])['variable'].apply(list).reset_index()
     colapsed_df['variable'] = colapsed_df['variable'].apply(lambda x: list(set(x)))
 
@@ -52,6 +51,7 @@ prune_bool = True
 
 for index,row in unique_df.iterrows():
     file_pattern = df.query(f"GCM == '{row['GCM']}'  & scenario == '{row['scenario']}'")
+    grid_code = file_pattern.url.str.split('.',expand=True)[0].str[-7:-5]
     avail_years = file_pattern.url.str.split('.',expand=True)[0].str[-4::]
     max_year = max(avail_years)
     min_year = min(avail_years)
@@ -61,12 +61,12 @@ for index,row in unique_df.iterrows():
     ensemble_member = row['ensemble_member']
 
     # Check if entry already exists
-    cat_df = read_catalog_file()
+    cat_df = read_catalog_file(catalog_url)
     exists_bool = cat_df['ID'].str.contains(f'{GCM}_{scenario}').any()
     if not exists_bool:
 
         def format_function(variable, time):
-            return f"s3://nex-gddp-cmip6/NEX-GDDP-CMIP6/{GCM}/{scenario}/{ensemble_member}/{variable}/{variable}_day_{GCM}_{scenario}_{ensemble_member}_gn_{time}.nc"
+            return f"s3://nex-gddp-cmip6/NEX-GDDP-CMIP6/{GCM}/{scenario}/{ensemble_member}/{variable}/{variable}_day_{GCM}_{scenario}_{ensemble_member}_{grid_code}_{time}.nc"
 
         years = list(range(int(min_year), int(max_year) + 1))
         variable_merge_dim = patterns.MergeDim("variable", keys=row['variable'])
@@ -76,7 +76,6 @@ for index,row in unique_df.iterrows():
 
         if prune_bool:
             pattern = pattern.prune(2)
-
         target_root = "s3://carbonplan-share/nasa-nex-reference/references/"
         store_name = f"{GCM}_{scenario}"
         output_file_name = 'reference.parquet'
@@ -92,7 +91,7 @@ for index,row in unique_df.iterrows():
             concat_dims=["time"],
             identical_dims=["lat", "lon"],
             )
-            # Write the combined Kerchunk reference to file.
+            Write the combined Kerchunk reference to file.
             | WriteCombinedReference(
                 store_name=store_name,
                 target_root=target_root,
@@ -100,15 +99,15 @@ for index,row in unique_df.iterrows():
                 output_file_name=output_file_name,
             )
         )
-
+        break
         with beam.Pipeline(runner=InteractiveRunner(), options=beam_options) as p:
             p | transforms
 
 
         cat_df.loc[-1] = [store_name, os.path.join(target_root, store_name, output_file_name)]
         cat_df.reset_index().drop(['index'], axis=1).to_csv(catalog_url, index=False)
-
-    break
+    
+    
 
 
 
