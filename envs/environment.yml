@@ -2,7 +2,7 @@ name: nasa-nex
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.9
   - dask
   - distributed
   - fastparquet 
@@ -27,5 +27,6 @@ dependencies:
 
   - pip:
       - git+https://github.com/pangeo-forge/pangeo-forge-recipes
+      - pangeo-forge-runner
       - "apache-beam[interactive, dataframe]"
 
