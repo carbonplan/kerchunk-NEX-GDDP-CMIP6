@@ -9,10 +9,14 @@ from pangeo_forge_recipes.transforms import (
 )
 from pangeo_forge_recipes import patterns
 from fsspec.implementations.reference import ReferenceFileSystem
-from apache_beam.runners.interactive.interactive_runner import InteractiveRunner
 from apache_beam.options.pipeline_options import PipelineOptions
 
-beam_options = PipelineOptions(direct_num_workers=8, direct_running_mode="multi_processing")
+options = PipelineOptions.from_dictionary({
+    'direct_num_workers': 8,
+    'direct_running_mode': 'multi_processing',
+})
+
+
 
 
 #df.value_counts(subset=['GCM','scenario'])
@@ -59,7 +63,6 @@ for index,row in unique_df.iterrows():
     GCM = row['GCM']
     scenario = row['scenario']
     ensemble_member = row['ensemble_member']
-
     # Check if entry already exists
     cat_df = read_catalog_file(catalog_url)
     exists_bool = cat_df['ID'].str.contains(f'{GCM}_{scenario}').any()
@@ -87,25 +90,27 @@ for index,row in unique_df.iterrows():
             | OpenWithKerchunk(file_type=pattern.file_type)
             # Use Kerchunk's `MultiZarrToZarr` functionality to combine the reference files into a single
             # reference file. *Note*: Setting the correct contact_dims and identical_dims is important.
-            | CombineReferences(
-            concat_dims=["time"],
-            identical_dims=["lat", "lon"],
-            )
             # Write the combined Kerchunk reference to file.
             | WriteCombinedReference(
+                concat_dims=["time"],
+                identical_dims=["lat", "lon"],
                 store_name=store_name,
                 target_root=target_root,
-                concat_dims=["time"],
                 output_file_name=output_file_name,
             )
         )
 
-        with beam.Pipeline(runner=InteractiveRunner(), options=beam_options) as p:
+        with beam.Pipeline(options=options) as p:
             p | transforms
+
 
 
         cat_df.loc[-1] = [store_name, os.path.join(target_root, store_name, output_file_name)]
         cat_df.reset_index().drop(['index'], axis=1).to_csv(catalog_url, index=False)
+    break
+
+
+
 
 
 
