@@ -27,6 +27,5 @@ dependencies:
 
   - pip:
       - git+https://github.com/pangeo-forge/pangeo-forge-recipes
-      - pangeo-forge-runner
       - "apache-beam[interactive, dataframe]"
 
