@@ -1,0 +1,19 @@
+title: "Nasa-Nex"
+description: "CMIP6 Downscaled Data from Nasa-Nex -- Reference Dataset"
+pangeo_forge_version: "0.10.2"
+recipes:
+  - id: Nasa-Nex
+    object: "recipe:recipes"
+provenance:
+  providers:
+    - name: "NASA"
+      description: "NASA"
+      roles:
+        - producer
+        - licensor
+  license: "CC-BY-NC v.4.0"
+maintainers:
+  - name: "Raphael Hagen"
+    orcid: "0000-0003-1994-1153"
+    github: norlandrhagen
+    
