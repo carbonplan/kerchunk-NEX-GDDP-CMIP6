@@ -19,10 +19,12 @@ dependencies:
   - numpy
   - pandas
   - pip
+  - thermofeel
   - s3fs
   - xarray
   - xarray-datatree
   - xmip
+  - xclim
   - zarr
 
   - pip:
