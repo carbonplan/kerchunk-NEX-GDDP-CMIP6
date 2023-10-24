@@ -9,6 +9,7 @@ dependencies:
   - gcsfs
   - git
   - ipython 
+  - geopandas
   - h5netcdf
   - h5py
   - h5pyd
@@ -29,5 +30,7 @@ dependencies:
       - git+https://github.com/pangeo-forge/pangeo-forge-recipes
       - git+https://github.com/fsspec/kerchunk
       - "apache-beam[interactive, dataframe]"
+      - sparse
+      - pint==0.19.2
       - thermofeel
 
