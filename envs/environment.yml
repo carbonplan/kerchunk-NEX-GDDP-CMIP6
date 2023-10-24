@@ -2,7 +2,7 @@ name: nasa-nex
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
+  - python=3.10
   - dask
   - distributed
   - fastparquet 
@@ -23,7 +23,7 @@ dependencies:
   - xarray
   - xarray-datatree
   - xmip
-  - xclim
+  - xclim=0.44.0
   - zarr
 
   - pip:
@@ -31,6 +31,6 @@ dependencies:
       - git+https://github.com/fsspec/kerchunk
       - "apache-beam[interactive, dataframe]"
       - sparse
-      - pint==0.19.2
+      - pint==0.22
       - thermofeel
 
