@@ -26,9 +26,7 @@ dependencies:
   - zarr
 
   - pip:
-      - git+https://github.com/pangeo-forge/pangeo-forge-recipes
       - git+https://github.com/fsspec/kerchunk
-      - "apache-beam[interactive, dataframe]"
       - "dask[complete]"
       - coiled
       - xclim=0.44.0 
