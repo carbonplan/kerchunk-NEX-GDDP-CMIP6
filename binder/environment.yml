@@ -5,10 +5,10 @@ dependencies:
   - python=3.10
   - dask
   - distributed
-  - fastparquet 
+  - fastparquet
   - gcsfs
   - git
-  - ipython 
+  - ipython
   - geopandas
   - h5netcdf
   - h5py
@@ -29,8 +29,7 @@ dependencies:
       - git+https://github.com/fsspec/kerchunk
       - "dask[complete]"
       - coiled
-      - xclim=0.44.0 
+      - xclim==0.44.0
       - sparse
       - pint==0.22
       - thermofeel
-
