@@ -3,12 +3,12 @@ name: Build and push container image
 on:
   pull_request:
     paths:
-      - 'binder/**.yml'
+      - "binder/**.yml"
   push:
     branches:
       - main
     paths:
-      - 'binder/**.yml'
+      - "binder/**.yml"
 
 jobs:
   test-build:
@@ -39,13 +39,13 @@ jobs:
           # Make sure username & password/token pair matches your registry credentials
           DOCKER_USERNAME: ${{ secrets.QUAY_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
-          DOCKER_REGISTRY: 'quay.io'
+          DOCKER_REGISTRY: "quay.io"
           ADDITIONAL_TAG: ${{ env.DATE_TAG }}
 
           # Disable pushing a 'latest' tag, as this often just causes confusion
           # LATEST_TAG_OFF: true
           #
-          IMAGE_NAME: 'carbonplan/kerchunk-NASA-NEX-CMIP6'
+          IMAGE_NAME: "carbonplan/kerchunk-nasa-nex"
 
       # Lets us monitor disks getting full as images get bigger over time
       - name: Show how much disk space is left
