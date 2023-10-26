@@ -10,6 +10,7 @@ dependencies:
   - git
   - ipython
   - geopandas
+  - jupyter
   - h5netcdf
   - h5py
   - h5pyd
