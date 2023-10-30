@@ -2,7 +2,7 @@ name: nasa-nex
 channels:
   - conda-forge
 dependencies:
-  - python=3.10.13
+  - python=3.10
   - dask[complete]==2023.10.0
   - fastparquet==2023.10.1
   - gcsfs==2023.10.0
@@ -22,14 +22,14 @@ dependencies:
   - pandas==2.1.2
   - pip==23.3.1
   - s3fs==2023.10.0
-  - xarray==2023.10.1
+  - xarray
   - xarray-datatree==0.0.12
   - xmip==0.7.1
   - xarrayutils==2.0.0
   - xgcm==0.6.1
   - zarr==2.16.1
-  - xclim==0.44.0
-  - sparse==0.14.0
+  - xclim
+  - sparse
   - pint==0.22
 
   - pip:
