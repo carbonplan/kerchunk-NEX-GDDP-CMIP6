@@ -4,12 +4,13 @@ channels:
 dependencies:
   - python=3.10.13
   - dask[complete]==2023.10.0
-  - distributed==2023.10.0
   - fastparquet==2023.10.1
   - gcsfs==2023.10.0
   - git==2.42.0
   - geopandas==0.14.0
   - h5netcdf==1.2.0
+  - coiled==1.1.5
+  - kerchunk==0.2.2
   - h5py==3.10.0
   - h5pyd==0.16.0
   - ipython==8.16.1
@@ -20,8 +21,6 @@ dependencies:
   - numpy==1.26.0
   - pandas==2.1.2
   - pip==23.3.1
-  - aiobotocore==2.7.0
-  - botocore==1.31.17
   - s3fs==2023.10.0
   - xarray==2023.10.1
   - xarray-datatree==0.0.12
@@ -29,11 +28,9 @@ dependencies:
   - xarrayutils==2.0.0
   - xgcm==0.6.1
   - zarr==2.16.1
+  - xclim==0.44.0
+  - sparse==0.14.0
+  - pint==0.22
 
   - pip:
-      - git+https://github.com/fsspec/kerchunk
-      - coiled==1.1.5
-      - xclim==0.44.0
-      - sparse==0.14.0
-      - pint==0.22
       - thermofeel==1.3.0
