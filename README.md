@@ -39,7 +39,7 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
 | Method              | # of Input Datasets | Temporal Extent | # of Workers | Worker Instance Type | Time                  |
 | ------------------- | ------------------- | --------------- | ------------ | -------------------- | --------------------- |
 | openmfdataset       | 20                  | 365 days        | 10           | m7i.xlarge           | 20 minutes 24 seconds |
-| kerchunk + datatree | 20s                 | 365 days        | 10           | m7i.xlarge           | 3 min 32 seconds      |
+| kerchunk + datatree | 20                  | 365 days        | 10           | m7i.xlarge           | 3 min 32 seconds      |
 
 ### Structure of the Repo
 
