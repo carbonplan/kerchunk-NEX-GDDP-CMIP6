@@ -133,12 +133,14 @@ def adjust_pressure(temperature, elevation):
     """
     return 101325 * np.power(10, -elevation / (18400 * temperature / 273.15))
 
+
 def load_elev():
     elev = xr.open_zarr(
         "s3://carbonplan-climate-impacts/extreme-heat/v1.0/inputs/elevation.zarr"
     )
     elev = elev.chunk({"lat": -1, "lon": -1}).compute()
     return elev
+
 
 ## calc wbgt
 def wbgt(wbt, bgt, tas):
