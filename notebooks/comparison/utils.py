@@ -6,10 +6,13 @@ import thermofeel as tf
 import xarray as xr
 import numpy as np
 import geopandas as gpd
+import os
 import sparse
 from shapely.geometry import Polygon
 import fsspec
 import dask
+
+os.environ["USE_PYGEOS"] = "0"
 
 gcm_list = [
     "ACCESS-CM2",
@@ -156,6 +159,7 @@ def wbgt(wbt, bgt, tas):
 
 def generate_WBGT(ds: xr.Dataset, output_fpath: str):
     # calculate elevation-adjusted pressure
+    elev = load_elev()
     ds["ps"] = xr.apply_ufunc(adjust_pressure, ds["tas"], elev, dask="allowed").rename(
         {"elevation": "ps"}
     )["ps"]
