@@ -6,7 +6,6 @@ from pangeo_forge_recipes.transforms import (
     WriteCombinedReference,
 )
 from pangeo_forge_recipes import patterns
-from apache_beam.options.pipeline_options import PipelineOptions
 
 
 def _nasa_nex_df() -> pd.DataFrame:
@@ -84,4 +83,3 @@ recipes = (
 
 cat_df.loc[-1] = [store_name, os.path.join(store_name, output_file_name)]
 cat_df.reset_index().drop(["index"], axis=1).to_csv(catalog_url, index=False)
-
