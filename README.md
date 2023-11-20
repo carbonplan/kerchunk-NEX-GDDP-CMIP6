@@ -58,8 +58,7 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
     └── parallel_reference_generation.ipynb
 ```
 
-- **comparison:** notebooks to compare both methods
-- **generation:** generation approaches for creating references
+
 
 ### Generating References
 
