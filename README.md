@@ -58,7 +58,7 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
 
 ### Generating References
 
-In this repo there are two examples of how to generate the `Kerchunk` reference files for the NASA-NEX-GDDP-CMIP6 dataset. `scripts/dask-nasa-nex.py` is a straightforward approach that uses `Kerchunk` to generate the individual references and `Dask` to parallelize the reference generation. The other approach, `feedstock/*` contains the components for a `pangeo-forge recipe`. `Pangeo-Forge` is a open-source `ETL` project for producing ARCO datasets. In this example, `Kerchunk` is being used "under the hood" by `pangeo-forge-recipes` to generate the reference files. This `recipe` can then be run on a local machine or scaled out using `google-dataflow`, `apache-flink` or in the future `Dask`.
+In this repo there are two examples of how to generate the `Kerchunk` reference files for the NASA-NEX-GDDP-CMIP6 dataset. `notebooks/parallel_reference_generation.ipynb` is a straightforward approach that uses `Kerchunk` to generate the individual references and `Dask` + `coiled` to parallelize the reference generation. The other approach, `feedstock/*` contains the components for a `pangeo-forge recipe`. `Pangeo-Forge` is a open-source `ETL` project for producing ARCO datasets. In this example, `Kerchunk` is being used "under the hood" by `pangeo-forge-recipes` to generate the reference files. This `recipe` can then be run on a local machine or scaled out using `google-dataflow`, `apache-flink` or in the future `Dask`.
 
 ## license
 
