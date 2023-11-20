@@ -49,12 +49,12 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
 ├── feedstock
 ├── notebooks
 │ └── comparison
-└── scripts
+│ └── generation
 ```
 
-- **feedstock:** ``pangeo-forge-recipes`` approach for generating kerchunk reference
+- **feedstock:** `pangeo-forge-recipes` approach for generating kerchunk reference
 - **notebooks/comparison:** notebooks for both methods
-- **scripts:** generation script for kerchunk references
+- **notebooks/generation:** generation script for kerchunk references
 
 ### Generating References
 
