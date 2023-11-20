@@ -10,15 +10,15 @@
 [![CI](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml/badge.svg)](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml)
 [![License](https://img.shields.io/github/license/carbonplan/python-project-template?style=flat)](https://github.com/carbonplan/python-project-template/blob/main/LICENSE)
 
-This repo serves as a comparison of two methods for analyzing the NASA-NEX-GDDP-CMIP6 dataset. The first method (`notebooks/comparisons/heat_openmfdataset.ipynb`) uses `Xarray's` `open_mfdataset` function to loop through the NASA-NEX netcdf files, merge across variables and concat along the time dimension. The second approach (`notebooks/comparisons/heat_datatree.ipynb`) is an attempt to speed up and simplify this process using two python projects; `kerchunk` and `xarray-datatree`.
+This repo serves as a comparison of two methods for analyzing the NASA-NEX-GDDP-CMIP6 dataset. The first method (`comparison/heat_openmfdataset.ipynb`) uses `Xarray's` `open_mfdataset` function to loop through the NASA-NEX netcdf files, merge across variables and concat along the time dimension. The second approach (`comparison/heat_datatree.ipynb`) is an attempt to speed up and simplify this process using two python projects; `kerchunk` and `xarray-datatree`.
 
 ## Approach 1: open_mfdataset
 
-The notebook `notebooks/comparisons/heat_openmfdataset.ipynb` represents a common approach to processing collections of NetCDF files using `Xarray's` `open_mfdataset`. This function allows you to open multiple NetCDF files as a single `Xarray` dataset, merging and concatenating along your desired dimensions. This notebook loops over each `GCM/scenario` combination in the NASA-NEX-GDDP-CMIP6 dataset, uses `open_mfdataset` to create a large `Xarray` dataset, does some custom processing and then writes to Zarr.
+The notebook `comparison/heat_openmfdataset.ipynb` represents a common approach to processing collections of NetCDF files using `Xarray's` `open_mfdataset`. This function allows you to open multiple NetCDF files as a single `Xarray` dataset, merging and concatenating along your desired dimensions. This notebook loops over each `GCM/scenario` combination in the NASA-NEX-GDDP-CMIP6 dataset, uses `open_mfdataset` to create a large `Xarray` dataset, does some custom processing and then writes to Zarr.
 
 ## Approach 2: xarray-datatree and kerchunk
 
-The notebook `notebooks/comparisons/heat_datatree.ipynb` represents a different approach to this data processing pipeline. Instead of looping over each `GCM/scenario` combination and opening them with `open_mfdataset` , it uses `xarray-datatree` as a catalog to organize the `GCM/scenario` datasets and `kerchunk` to read them as if they were `Zarr` stores. Details on this approach are described in the next section.
+The notebook `comparison/heat_datatree.ipynb` represents a different approach to this data processing pipeline. Instead of looping over each `GCM/scenario` combination and opening them with `open_mfdataset` , it uses `xarray-datatree` as a catalog to organize the `GCM/scenario` datasets and `kerchunk` to read them as if they were `Zarr` stores. Details on this approach are described in the next section.
 
 ### Generating Kerchunk References for NASA-NEX
 
@@ -44,21 +44,26 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
 ### Structure of the Repo
 
 ```
+.
+├── LICENSE
+├── README.md
 ├── binder
-│ └── environment.yml
-├── feedstock
-├── notebooks
-│ └── comparison
-│ └── generation
+│   └── environment.yml
+├── comparison
+│   ├── heat_datatree.ipynb
+│   ├── heat_openmfdataset.ipynb
+│   └── utils.py
+└── generation
+    ├── pangeo-forge
+    └── parallel_reference_generation.ipynb
 ```
 
-- **feedstock:** `pangeo-forge-recipes` approach for generating kerchunk reference
-- **notebooks/comparison:** notebooks for both methods
-- **notebooks/generation:** generation script for kerchunk references
+
 
 ### Generating References
 
-In this repo there are two examples of how to generate the `Kerchunk` reference files for the NASA-NEX-GDDP-CMIP6 dataset. `notebooks/parallel_reference_generation.ipynb` is a straightforward approach that uses `Kerchunk` to generate the individual references and `Dask` + `coiled` to parallelize the reference generation. The other approach, `feedstock/*` contains the components for a `pangeo-forge recipe`. `Pangeo-Forge` is a open-source `ETL` project for producing ARCO datasets. In this example, `Kerchunk` is being used "under the hood" by `pangeo-forge-recipes` to generate the reference files. This `recipe` can then be run on a local machine or scaled out using `google-dataflow`, `apache-flink` or in the future `Dask`.
+In this repo there are two examples of how to generate the `Kerchunk` reference files for the NASA-NEX-GDDP-CMIP6 dataset. `generation/parallel_reference_generation.ipynb` is a straightforward approach that uses `Kerchunk` to generate the individual references and `Dask` + `Coiled` to parallelize the reference generation. The other approach, `generation/feedstock/` contains the components for a `pangeo-forge recipe`. `Pangeo-Forge` is a open-source `ETL` project for producing ARCO datasets. In this example, `Kerchunk` is being used "under the hood" by `pangeo-forge-recipes` to generate the reference files. This `recipe` can then be run on a local machine or scaled out using `google-dataflow`, `apache-flink` or in the future `Dask`.
+
 
 ## license
 
