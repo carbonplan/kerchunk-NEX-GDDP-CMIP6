@@ -1,86 +1,14 @@
 # Utils for loading inputs, manipulating data, and writing out results
 import pandas as pd
-import s3fs
 import xclim
 import thermofeel as tf
 import xarray as xr
 import numpy as np
 import geopandas as gpd
-import os
 import sparse
 from shapely.geometry import Polygon
 import fsspec
 import dask
-
-os.environ["USE_PYGEOS"] = "0"
-
-## loading
-df = pd.read_csv(
-    "s3://carbonplan-climate-impacts/extreme-heat/v1.0/inputs/nex-gddp-cmip6-files.csv"
-)
-nasa_nex_runs_df = pd.DataFrame([run.split("/") for run in df[" fileURL"].values]).drop(
-    [0, 1, 2, 3], axis=1
-)
-nasa_nex_runs_df.columns = [
-    "GCM",
-    "scenario",
-    "ensemble_member",
-    "variable",
-    "file_name",
-]
-
-
-def find_nasanex_filename(gcm, scenario):
-    """
-    Load list of NASA-NEX files downloaded from their docs. We will use it to create
-    the catalog of available datasets. Largely this is used to filter out the GCMs
-    that don't have tasmax available.
-    """
-    template_filename = nasa_nex_runs_df[
-        (nasa_nex_runs_df["GCM"] == gcm)
-        & (nasa_nex_runs_df["scenario"] == scenario)
-        & (nasa_nex_runs_df["variable"] == "tasmax")
-    ]["file_name"].iloc[0]
-    (
-        _variable,
-        _timestep,
-        _gcm,
-        _scenario,
-        ensemble_member,
-        grid_code,
-        _yearnc,
-    ) = template_filename.split("_")
-    return ensemble_member, grid_code
-
-
-##
-def load_nasanex(scenario, gcm, variables, years, chunk_dict=None):
-    """
-    Read in NEX-GDDP-CMIP6 data from S3.
-    """
-    fs = s3fs.S3FileSystem(anon=True, default_fill_cache=False)
-
-    file_objs = {}
-    ds = xr.Dataset()
-    ensemble_member, grid_code = find_nasanex_filename(gcm, scenario)
-    for i, var in enumerate(variables):
-        file_objs[var] = [
-            fs.open(
-                f"nex-gddp-cmip6/NEX-GDDP-CMIP6/{gcm}/{scenario}/"
-                f"{ensemble_member}/{var}/{var}_day_{gcm}_{scenario}"
-                f"_{ensemble_member}_{grid_code}_{year}.nc"
-            )
-            for year in years
-        ]
-        if i == 0:
-            ds[var] = xr.open_mfdataset(file_objs[var], engine="h5netcdf")[var]
-        else:
-            new_var = xr.open_mfdataset(file_objs[var], engine="h5netcdf")
-            new_var["time"] = ds[variables[0]]["time"].values
-            ds[var] = new_var[var]
-    if chunk_dict is not None:
-        ds = ds.chunk(chunk_dict)
-    return ds
 
 
 def adjust_pressure(temperature, elevation):
