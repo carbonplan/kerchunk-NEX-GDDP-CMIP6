@@ -10,7 +10,9 @@
 [![CI](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml/badge.svg)](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml)
 [![License](https://img.shields.io/github/license/carbonplan/python-project-template?style=flat)](https://github.com/carbonplan/python-project-template/blob/main/LICENSE)
 
-This repo serves as a comparison of two methods for analyzing the NASA-NEX-GDDP-CMIP6 dataset. The first method (`comparison/heat_openmfdataset.ipynb`) uses `Xarray's` `open_mfdataset` function to loop through the NASA-NEX netcdf files, merge across variables and concat along the time dimension. The second approach (`comparison/heat_datatree.ipynb`) is an attempt to speed up and simplify this process using two python projects; `kerchunk` and `xarray-datatree`.
+This repo serves as a comparison of two methods for analyzing the NASA-NEX-GDDP-CMIP6 dataset. In these examples we are building off of the [extreme-heat analysis work](https://carbonplan.org/research/extreme-heat-explainer) done at CarbonPlan and using the calculation of WBGT (WetBulb Glob Temperature) as a testbed to compare two processing approaches. More details on our work in extreme-heat can be found in this [GitHub Repo](https://github.com/carbonplan/extreme-heat).
+
+The first method (`comparison/heat_openmfdataset.ipynb`) uses `Xarray's` `open_mfdataset` function to loop through the NASA-NEX netcdf files, merge across variables and concat along the time dimension. The second approach (`comparison/heat_datatree.ipynb`) is an attempt to speed up and simplify this process using two python projects; `kerchunk` and `xarray-datatree`.
 
 ## Approach 1: open_mfdataset
 
@@ -58,12 +60,9 @@ To compare the two methods, we processed a subset of the total NASA-NEX-GDDP-CMI
     └── parallel_reference_generation.ipynb
 ```
 
-
-
 ### Generating References
 
 In this repo there are two examples of how to generate the `Kerchunk` reference files for the NASA-NEX-GDDP-CMIP6 dataset. `generation/parallel_reference_generation.ipynb` is a straightforward approach that uses `Kerchunk` to generate the individual references and `Dask` + `Coiled` to parallelize the reference generation. The other approach, `generation/feedstock/` contains the components for a `pangeo-forge recipe`. `Pangeo-Forge` is a open-source `ETL` project for producing ARCO datasets. In this example, `Kerchunk` is being used "under the hood" by `pangeo-forge-recipes` to generate the reference files. This `recipe` can then be run on a local machine or scaled out using `google-dataflow`, `apache-flink` or in the future `Dask`.
-
 
 ## license
 
