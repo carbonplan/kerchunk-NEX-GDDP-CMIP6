@@ -16,7 +16,8 @@ def adjust_pressure(temperature, elevation):
 
 def load_elev():
     elev = xr.open_zarr(
-        "s3://carbonplan-climate-impacts/extreme-heat/v1.0/inputs/elevation.zarr"
+        "s3://carbonplan-climate-impacts/extreme-heat/v1.0/inputs/elevation.zarr",
+        storage_options={"anon": True},
     )
     elev = elev.chunk({"lat": -1, "lon": -1}).compute()
     return elev
