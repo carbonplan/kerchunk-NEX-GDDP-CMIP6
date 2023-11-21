@@ -12,7 +12,8 @@ def _nasa_nex_df() -> pd.DataFrame:
     return pd.read_csv(
         "s3://carbonplan-share/nasa-nex-reference/nasa_nex_formatted.csv"
     )
-    # specify ensemble_member doesn't change # in query (ie, choosing a gcm + scenario gives a unique ensemble member)
+    # specify ensemble_member doesn't change # in query
+    # (ie, choosing a gcm + scenario gives a unique ensemble member)
 
 
 def _GCM_scenarios(df: pd.DataFrame) -> pd.DataFrame:

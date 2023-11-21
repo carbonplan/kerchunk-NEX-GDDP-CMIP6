@@ -14,54 +14,6 @@ import dask
 
 os.environ["USE_PYGEOS"] = "0"
 
-gcm_list = [
-    "ACCESS-CM2",
-    "ACCESS-ESM1-5",
-    "BCC-CSM2-MR",
-    "CanESM5",
-    "CMCC-CM2-SR5",
-    "CMCC-ESM2",
-    "CNRM-CM6-1",
-    "CNRM-ESM2-1",
-    "EC-Earth3-Veg-LR",
-    "EC-Earth3",
-    "FGOALS-g3",
-    "GFDL-CM4",
-    "GFDL-ESM4",
-    "GISS-E2-1-G",
-    "HadGEM3-GC31-LL",
-    "INM-CM4-8",
-    "INM-CM5-0",
-    "KACE-1-0-G",
-    "KIOST-ESM",
-    "MIROC-ES2L",
-    "MPI-ESM1-2-HR",
-    "MPI-ESM1-2-LR",
-    "MRI-ESM2-0",
-    "NorESM2-LM",
-    "NorESM2-MM",
-    "UKESM1-0-LL",
-]
-
-gcms_with_nonstandard_calendars_list = [
-    "BCC-CSM2-MR",
-    "CanESM5",
-    "CMCC-CM2-SR5",
-    "CMCC-ESM2",
-    "FGOALS-g3",
-    "GFDL-CM4",
-    "GFDL-ESM4",
-    "GISS-E2-1-G",
-    "HadGEM3-GC31-LL",
-    "INM-CM4-8",
-    "INM-CM5-0",
-    "KACE-1-0-G",
-    "KIOST-ESM",
-    "NorESM2-LM",
-    "NorESM2-MM",
-    "UKESM1-0-LL",
-]
-
 ## loading
 df = pd.read_csv(
     "s3://carbonplan-climate-impacts/extreme-heat/v1.0/inputs/nex-gddp-cmip6-files.csv"
@@ -450,7 +402,7 @@ def clean_up_times(ds):
     return ds
 
 
-## processing
+# processing
 def summarize(da, metric):
     """
     Calculate two key kinds of aggregated metrics: annual maximum and number
