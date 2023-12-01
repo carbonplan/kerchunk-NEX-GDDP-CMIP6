@@ -33,9 +33,8 @@ def wbgt(wbt, bgt, tas):
     return wbgt
 
 
-def generate_WBGT(ds: xr.Dataset, output_fpath: str):
+def generate_WBGT(ds: xr.Dataset, output_fpath: str, elev: xr.Dataset):
     # calculate elevation-adjusted pressure
-    elev = load_elev()
     ds["ps"] = xr.apply_ufunc(adjust_pressure, ds["tas"], elev, dask="allowed").rename(
         {"elevation": "ps"}
     )["ps"]

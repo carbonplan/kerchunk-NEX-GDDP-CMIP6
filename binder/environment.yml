@@ -29,6 +29,7 @@ dependencies:
   - xmip==0.7.1
   - xarrayutils==2.0.0
   - xgcm==0.6.1
+  - python-xxhash>=2.0.0 # might speed up dask hashing
   - zarr==2.16.1
   - pip:
       - thermofeel==1.3.0
