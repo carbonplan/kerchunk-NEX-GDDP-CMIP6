@@ -33,6 +33,7 @@ def wbgt(wbt, bgt, tas):
     return wbgt
 
 
+@dask.delayed
 def generate_WBGT(ds: xr.Dataset, output_fpath: str, elev: xr.Dataset):
     # calculate elevation-adjusted pressure
     ds["ps"] = xr.apply_ufunc(adjust_pressure, ds["tas"], elev, dask="allowed").rename(
@@ -53,5 +54,4 @@ def generate_WBGT(ds: xr.Dataset, output_fpath: str, elev: xr.Dataset):
     ds["WBGT"] = wbgt(ds["WBT"], ds["BGT"], ds["tasmax"] - 273.15)
     ds["WBGT"].attrs["units"] = "degC"
     ds = ds[["WBGT"]]
-    ds = dask.optimize(ds)[0]
     return ds.to_zarr(output_fpath, consolidated=True, compute=True, mode="w")
