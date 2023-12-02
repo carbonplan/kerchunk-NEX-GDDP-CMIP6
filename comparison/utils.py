@@ -3,7 +3,6 @@ import xclim
 import thermofeel as tf
 import xarray as xr
 import numpy as np
-import dask
 
 
 def adjust_pressure(temperature, elevation):
@@ -33,7 +32,6 @@ def wbgt(wbt, bgt, tas):
     return wbgt
 
 
-@dask.delayed
 def generate_WBGT(ds: xr.Dataset, output_fpath: str, elev: xr.Dataset):
     # calculate elevation-adjusted pressure
     ds["ps"] = xr.apply_ufunc(adjust_pressure, ds["tas"], elev, dask="allowed").rename(
