@@ -23,7 +23,7 @@ dependencies:
   - numpy==1.26.0
   - pandas==2.1.2
   - pip==23.3.1
-  - s3fs==2023.10.0
+  - s3fs==2023.12.0
   - xarray==2023.10.1
   - xarray-datatree==0.0.12
   - xmip==0.7.1
