@@ -68,8 +68,7 @@ In this repo there are two examples of how to generate the `Kerchunk` reference 
 
 All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/) licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
 
-The NEX-GDD-CMIP6 dataset used to create the reference is licensed under Creative Commons Zero license (CC0).  The underlying CMIP6 datasets used in the creation the NEX-GDD-CMIP6 dataset are licensed under Creative Commons - Attribution 4.0 (CC4). 
-
+The NEX-GDD-CMIP6 dataset used to create the reference is licensed under Creative Commons Zero license (CC0). The underlying CMIP6 datasets used in the creation the NEX-GDD-CMIP6 dataset are licensed under Creative Commons - Attribution 4.0 (CC4).
 
 ## about us
 
