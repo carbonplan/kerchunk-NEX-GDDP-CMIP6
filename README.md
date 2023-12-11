@@ -68,6 +68,9 @@ In this repo there are two examples of how to generate the `Kerchunk` reference 
 
 All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/) licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
 
+The NEX-GDD-CMIP6 dataset used to create the reference is licensed under Creative Commons Zero license (CC0).  The underlying CMIP6 datasets used in the creation the NEX-GDD-CMIP6 dataset are licensed under Creative Commons - Attribution 4.0 (CC4). 
+
+
 ## about us
 
 CarbonPlan is a non-profit organization that uses data and science for climate action. We aim to improve the transparency and scientific integrity of climate solutions with open data and tools. Find out more at [carbonplan.org](https://carbonplan.org/) or get in touch by [opening an issue](https://github.com/carbonplan/python-project-template/issues/new) or [sending us an email](mailto:hello@carbonplan.org).
